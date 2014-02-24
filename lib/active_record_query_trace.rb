@@ -39,7 +39,7 @@ module ActiveRecordQueryTrace
         when :rails
           Rails.respond_to?(:backtrace_cleaner) ? Rails.backtrace_cleaner.clean(trace) : trace
         when :app
-          Rails.backtrace_cleaner.add_silencer { |line| not line =~ /^app/ }
+          Rails.backtrace_cleaner.add_silencer { |line| not (line =~ /^app/ or line =~ /^lib/) }
           Rails.backtrace_cleaner.clean(trace)
         end
       end
